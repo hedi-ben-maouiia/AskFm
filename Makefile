@@ -6,5 +6,7 @@ BUILD_DIR=build
 
 ask: $(SRC_DIR)/ask.cpp
 	$(CC) $(SRC_DIR)/ask.cpp $(C_FLAGS) $(BUILD_DIR)/ask
-run: ask
+run:
 	./build/ask
+clean:
+	rm -rf $(BUILD_DIR)/*

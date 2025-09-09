@@ -1,8 +1,6 @@
 #include "ask.hpp"
 
 
-/*------------------ Helper function ------------------*/
-// 
 std::vector<std::string> splitString(std::string str, const std::string &dilem)
 {
     std::vector<std::string> ret;
@@ -25,10 +23,8 @@ int toInt(const std::string &str)
     return _ret;
 }
 
-/*-------------------------------------------------------*/
 
 int main()
 {
-    std::cout << toInt("222");
     return 0;
 }

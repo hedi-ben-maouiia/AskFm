@@ -1,20 +1,73 @@
 #include "users.hpp"
 
-userData::userData(std::string user_info){
-    userData user;
+
+
+User::User(std::string user_info){
     std::vector<std::string> splited_string = splitString(user_info);
-    user.id         = toInt(splited_string[0]);
-    user.u_name     = splited_string[1];
-    user.name       = splited_string[2];
-    user.email      = splited_string[3];
-    user.password   = splited_string[4];
+    id              = toInt(splited_string[0]);
+    allow_anonymose = toInt(splited_string[1]);
+    u_name          = splited_string[2];
+    name            = splited_string[3];
+    email           = splited_string[4];
+    password        = splited_string[5];
 }
-std::string userData::to_string() const
+std::string User::to_string() const
 {
-    userData user;
     std::ostringstream os;
-    os << user.id << "," <<user.u_name << "," << user.name << "," << user.email << "," << user.password << "\n";
+    os << id << "," << u_name << "," << name << "," << email << "," << password << "\n";
     return os.str();
 }
 
+int         User::get_user_id() const
+{
+    return id;
+}
+int         User::get_anonymose() const 
+{
+    return allow_anonymose; 
+}
+const std::string &User::get_user_name() const 
+{
+    return u_name;
+}
+std::string User::get_name() const 
+{
+    return name;
+}
+std::string User::get_user_email() const 
+{
+    return email;
+}
+std::string User::get_user_password() const 
+{
+    return password;
+}
+void User::set_user_id(int id)
+{
+    this->id = id;
+}
+void User::set_is_anonymose(int allow_anonymose)
+{
+    this->allow_anonymose = allow_anonymose;
+}
+void User::set_user_name(const std::string &u_name)
+{
+    this->u_name = u_name;
+}
+void User::set_name(const std::string &name)
+{
+   this->name = name; 
+}
+void User::set_user_email(const std::string &email)
+{
+    this->email = email;
+}
+void User::set_password(const std::string &password)
+{
+    this->password = password;
+}
+void User::print_user_info()const 
+{
+    std::cout << "UserID[" << id << "]\t\t Name : ["<< name << "]";
+}
 

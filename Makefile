@@ -1,12 +1,12 @@
 CC=g++ 
-C_FLAGS=-Wall -Wextra -pedantic -ggdb -o 
-SRC_DIR=src
+C_FLAGS=-Wall -Wextra -pedantic -ggdb -lraylib -o 
+SRC_FILES=ask.cpp questions.cpp users.cpp main.cpp
 BUILD_DIR=build
 
 
-ask: $(SRC_DIR)/ask.cpp
-	$(CC) $(SRC_DIR)/ask.cpp $(C_FLAGS) $(BUILD_DIR)/ask
+ask: 
+	$(CC) $(SRC_FILES) $(C_FLAGS) $(BUILD_DIR)/main
 run:
-	./build/ask
+	./build/main
 clean:
 	rm -rf $(BUILD_DIR)/*

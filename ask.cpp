@@ -1,42 +1,41 @@
-#include "ask.hpp"
+#include "ask.h"
 
 
-
-void askSystem::load_data_bases()
-{
-    std::vector<std::string> data_users     = readFromFile("databases/users.txt");
-    std::vector<std::string> data_questions = readFromFile("databases/questions.txt"); 
-    for(auto user : data_users){
-        User cur_user(user);
+void askSystem::load_data_base()
+{   
+    std::vector<std::string> users_info_string; 
+    readFromFile("databases/users.txt",users_info_string); 
+    for(const auto &user : users_info_string){
+        User new_user(user);
+        user_manager.add_user(new_user);
     }
 }
+
 void askSystem::run()
-{
-    access_system();
-}
-void askSystem::access_system()
-{
+{   
+    load_data_base(); 
     bool quite = false;
-    load_data_bases();
     while(!quite){
-        std::vector<std::string> menu;
-        menu.reserve(3);
-        menu = {"Login", "SignUp", "Quite"};
-        int choice = printMenu(menu); 
+        std::vector<std::string> menu = {"Login", "SignUp", "Exit"}; 
+        int choice = printMenu(menu);
         switch(choice){
-            case 1: {
-                load_data_bases();
-                login();
-            }break;
-            case 2: {   
-                sign_up(); 
-            }break;
-            case 3: {
+            case 1: 
+                user_manager.login();
+                user_manager.access_system(menu);
+                break;
+            case 2: 
+                user_manager.sign_up();
+                user_manager.access_system(menu);
+                break;
+            case 3: 
                 quite = true;
-            }break;
-        }
+                break;
+        } 
     }
 }
+
+
+
 std::vector<std::string> splitString(std::string str, const std::string &dilem)
 {
     std::vector<std::string> ret;
@@ -62,7 +61,7 @@ int toInt(const std::string &str)
 
 int readInt(int low, int high)
 {
-    std::cout << "Enter a choice between " << low << " & " << high;
+    std::cout << "Enter a choice between " << low << " & " << high << ": ";
     int choice = -1;
     std::cin >> choice;
     if(choice < low && choice > high){
@@ -73,8 +72,9 @@ int readInt(int low, int high)
 }
 int printMenu(const std::vector<std::string>& menu)
 {
+    std::cout << "Menu:\n";
     for(int i{0}; i < (int)menu.size(); ++i){
-        std::cout << i+1 << "." << menu[i] << "\n";
+        std::cout << "\t" <<i+1 << "." << menu[i] << ".\n";
     }
     return readInt(1, menu.size());
 }
